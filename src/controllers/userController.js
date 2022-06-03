@@ -165,7 +165,19 @@ const createUser = async function (req, res) {
         if (!files[0].fieldname) {
             return res.status(400).send({ Status: false, message: "Please upload the profile image" })
         }
+        if(files.length>0){
 
+            if(files[0].mimetype == "image/jpeg" ||files[0].mimetype =="image/png"){
+                files=files
+            }
+            else{
+                return res.status(400).send({ Status: false, message: "Image could not be upload, please use jpeg/png" })
+            }
+
+        }
+       
+
+   
         let uploadedFileURL = await uploadFile(files[0])
 
         if (!uploadedFileURL) {
@@ -355,7 +367,16 @@ const updateData = async function (req, res) {
                 return res.status(400).send({ Status: false, message: "Please upload the image" })
             }
         }
+        if(files.length>0){
 
+            if(files[0].mimetype == "image/jpeg" ||files[0].mimetype =="image/png"){
+                files=files
+            }
+            else{
+                return res.status(400).send({ Status: false, message: "Image could not be upload, please use jpeg/png" })
+            }
+
+        }
        
         if (files && files.length > 0) {
 
